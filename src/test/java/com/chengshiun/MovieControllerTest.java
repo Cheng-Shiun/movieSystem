@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,7 +35,8 @@ public class MovieControllerTest {
         //normal_member
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/watchFreeMovie")
-                .with(httpBasic("normal@gmail.com", "normal"));
+                .with(httpBasic("normal@gmail.com", "normal"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200));
@@ -42,7 +44,8 @@ public class MovieControllerTest {
         //admin
         RequestBuilder requestBuilder2 = MockMvcRequestBuilders
                 .post("/watchFreeMovie")
-                .with(httpBasic("admin@gmail.com", "admin"));
+                .with(httpBasic("admin@gmail.com", "admin"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder2)
                 .andExpect(status().is(200));
@@ -54,7 +57,8 @@ public class MovieControllerTest {
         //vip_member
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/watchVipMovie")
-                .with(httpBasic("vip@gmail.com", "vip"));
+                .with(httpBasic("vip@gmail.com", "vip"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200));
@@ -62,7 +66,8 @@ public class MovieControllerTest {
         //admin
         RequestBuilder requestBuilder2 = MockMvcRequestBuilders
                 .post("/watchVipMovie")
-                .with(httpBasic("admin@gmail.com", "admin"));
+                .with(httpBasic("admin@gmail.com", "admin"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder2)
                 .andExpect(status().is(200));
@@ -74,7 +79,8 @@ public class MovieControllerTest {
         //normal_member
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/watchVipMovie")
-                .with(httpBasic("normal@gmail.com", "normal"));
+                .with(httpBasic("normal@gmail.com", "normal"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(403));
@@ -84,7 +90,8 @@ public class MovieControllerTest {
     public void uploadMovie_normalMember_fail() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/uploadMovie")
-                .with(httpBasic("normal@gmail.com", "normal"));
+                .with(httpBasic("normal@gmail.com", "normal"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(403));
@@ -95,7 +102,8 @@ public class MovieControllerTest {
         //movie_manager
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/uploadMovie")
-                .with(httpBasic("movie-manager@gmail.com", "movie-manager"));
+                .with(httpBasic("movie-manager@gmail.com", "movie-manager"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200));
@@ -103,7 +111,8 @@ public class MovieControllerTest {
         //admin
         RequestBuilder requestBuilder2 = MockMvcRequestBuilders
                 .post("/uploadMovie")
-                .with(httpBasic("admin@gmail.com", "admin"));
+                .with(httpBasic("admin@gmail.com", "admin"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder2)
                 .andExpect(status().is(200));
@@ -114,7 +123,8 @@ public class MovieControllerTest {
         //movie-manager
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .delete("/deleteMovie")
-                .with(httpBasic("movie-manager@gmail.com", "movie-manager"));
+                .with(httpBasic("movie-manager@gmail.com", "movie-manager"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200));
@@ -122,7 +132,8 @@ public class MovieControllerTest {
         //admin
         RequestBuilder requestBuilder2 = MockMvcRequestBuilders
                 .delete("/deleteMovie")
-                .with(httpBasic("admin@gmail.com", "admin"));
+                .with(httpBasic("admin@gmail.com", "admin"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder2)
                 .andExpect(status().is(200));
@@ -133,7 +144,8 @@ public class MovieControllerTest {
         //normal_member
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .delete("/deleteMovie")
-                .with(httpBasic("normal@gmail.com", "normal"));
+                .with(httpBasic("normal@gmail.com", "normal"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(403));
@@ -141,7 +153,8 @@ public class MovieControllerTest {
         //vip_member
         RequestBuilder requestBuilder2 = MockMvcRequestBuilders
                 .delete("/deleteMovie")
-                .with(httpBasic("vip@gmail.com", "vip"));
+                .with(httpBasic("vip@gmail.com", "vip"))
+                .with(csrf());
 
         mockMvc.perform(requestBuilder2)
                 .andExpect(status().is(403));
