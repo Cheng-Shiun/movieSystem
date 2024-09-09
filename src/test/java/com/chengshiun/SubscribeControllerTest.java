@@ -27,7 +27,7 @@ public class SubscribeControllerTest {
 
     @Test
     @Transactional
-    public void subscribe() throws Exception {
+    public void subscribe_success_withNormalMember() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("memberId", 2);
 
@@ -38,5 +38,36 @@ public class SubscribeControllerTest {
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(200));
+
+        //訂閱成功後是否可以觀看 vip 電影
+        RequestBuilder vipRequestBuilder = MockMvcRequestBuilders
+                .post("/watchVipMovie")
+                .session(session);
+
+        mockMvc.perform(vipRequestBuilder)
+                .andExpect(status().is(200));
+    }
+
+    @Test
+    @Transactional
+    public void unsubscribe_success_withVipMember() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("memberId", 3);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/unsubscribe")
+                .session(session)
+                .with(httpBasic("vip@gmail.com", "vip"));
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().is(200));
+
+        //取消訂閱後是否可以觀看 vip 電影
+        RequestBuilder vipRequestBuilder = MockMvcRequestBuilders
+                .post("/watchVipMovie")
+                .session(session);
+
+        mockMvc.perform(vipRequestBuilder)
+                .andExpect(status().is(403));
     }
 }

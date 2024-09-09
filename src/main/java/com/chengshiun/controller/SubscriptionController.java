@@ -69,7 +69,6 @@ public class SubscriptionController {
 
     }
 
-
     //自定義 checkSubscribeStatus()
     private boolean checkSubscribeStatus(List<Role> roleList) {
         boolean isSubscribed = false;
@@ -79,7 +78,6 @@ public class SubscriptionController {
                 isSubscribed = true;
             }
         }
-
         return isSubscribed;
     }
 
