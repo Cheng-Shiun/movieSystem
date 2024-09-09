@@ -19,16 +19,17 @@ public class UserLoginFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(UserLoginFilter.class);
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String url = request.getRequestURI();
 
         if (url.equals("/userLogin")) {
-            //取得 user 身份
+            //取得 member 身份
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String userAgent = request.getHeader("User-Agent");
 
-            // 使用 SimpleDateFormat 来指定时间格式
+            // 使用 SimpleDateFormat 来指定時間格式
             SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
             String now = dateFormat.format(new Date());
 
